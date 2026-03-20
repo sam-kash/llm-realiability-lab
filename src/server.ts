@@ -1,3 +1,4 @@
+import "dotenv/config";
 import Fastify from "fastify";
 import askRoute from "./routes/ask.js";
 

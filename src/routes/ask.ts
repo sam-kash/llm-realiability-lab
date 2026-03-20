@@ -12,7 +12,7 @@ export default async function askRoute(app: FastifyInstance) {
 
       const response = await callLLM(question);
 
-      return { answer: response };
+      return { answer : response };
     } catch (err) {
       console.error(err);
       return reply.status(500).send({ error: "Something went wrong" });
