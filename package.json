@@ -20,10 +20,8 @@
     "axios": "^1.13.6",
     "dotenv": "^17.3.1",
     "fastify": "^5.8.2",
-    "kafkajs": "^2.2.4",
     "langchain": "^1.2.35",
-    "pdf-parse": "^2.4.5",
-    "uuid": "^13.0.0"
+    "pdf-parse": "^2.4.5"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
