@@ -1,21 +1,28 @@
 import type { FastifyInstance } from "fastify";
-import {callLLM} from "../services/llm.js";
+import { retrieveContext } from "../rag/query.js";
+import { callLLM } from "../services/llm.js";
 
 export default async function askRoute(app: FastifyInstance) {
   app.post("/ask", async (request, reply) => {
     try {
       const { question } = request.body as { question: string };
 
-      if (!question) {
-        return reply.status(400).send({ error: "Question is required" });
-      }
+      const context = await retrieveContext(question);
 
-      const response = await callLLM(question);
+      const finalPrompt = `
+Context:
+${context}
 
-      return { answer : response };
+Question:
+${question}
+`;
+
+      const response = await callLLM(finalPrompt);
+
+      return { answer: response, context };
     } catch (err) {
-      console.error(err);
-      return reply.status(500).send({ error: "Something went wrong" });
+      return reply.status(500).send({ error: "Error" });
     }
   });
 }
+

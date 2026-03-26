@@ -1,7 +1,9 @@
 import "dotenv/config";
 import Fastify from "fastify";
 import askRoute from "./routes/ask.js";
+import { loadData } from "./rag/ingest.js";
 
+await loadData()
 const app = Fastify({logger : true})
 
 app.register(askRoute)

@@ -1,0 +1,3 @@
+RAG stands for Retrieval-Augmented Generation.
+It improves LLM accuracy by retrieving external knowledge before generating answers.
+It reduces hallucinations by grounding responses in real data.
