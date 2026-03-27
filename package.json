@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "worker": "tsx watch src/worker/worker.ts",
+    "kafka:list": "tsx src/kafka/listTopics.ts"
+
   },
   "keywords": [],
   "author": "",
