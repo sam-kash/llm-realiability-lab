@@ -3,9 +3,16 @@ import { EVALUATION_REQUESTS_TOPIC, ensureEvaluationTopic } from "../kafka/topic
 import { setJob } from "../store/jobStore.js";
 import { retrieveContext } from "../rag/query.js";
 import { callLLM } from "../services/llm.js";
+import { loadData } from "../rag/ingest.js";
+import dotenv from "dotenv"
+
+dotenv.config();
 
 const runWorker = async() =>{
     await ensureEvaluationTopic();
+
+    await loadData();
+
     await consumer.connect();
     await consumer.subscribe({
         topic: EVALUATION_REQUESTS_TOPIC , fromBeginning: true
