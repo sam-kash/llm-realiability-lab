@@ -42,5 +42,57 @@
   "07adc34a-d513-4962-80e0-e2478e30e526": {
     "status": "completed",
     "result": "I don't have any information about the question you asked about 'petrol' in the provided context. However, I can provide general information about it. Petrol, also known as gasoline, is a refined product derived from crude oil, used as a fuel for internal combustion engines."
+  },
+  "9faef4d3-e472-4d28-a006-2d353ee8fa19": {
+    "status": "completed",
+    "result": "RAG stands for Retrieval-Augmented Generation and it improves Large Language Model (LLM) accuracy by retrieving external knowledge, and also reduces hallucinations."
+  },
+  "d6bf8964-09b4-4f78-8f63-067edcbb323b": {
+    "status": "completed",
+    "result": "RAG stands for Retrieval-Augmented Generation, which is a technique that improves LLM (Large Language Model) accuracy by retrieving external knowledge and reduces hallucinations."
+  },
+  "d467a0cb-ab12-448b-93b4-d1b26a0136e7": {
+    "status": "completed",
+    "result": "RAG stands for Retrieval-Augmented Generation, which is a language model improvement technique that retrieves external knowledge to enhance the accuracy of Large Language Models (LLMs) and reduces hallucinations."
+  },
+  "a47e5a4a-5107-4b8b-95c5-5855bac4f74e": {
+    "status": "completed",
+    "result": "RAG stands for Retrieval-Augmented Generation, an AI technique that improves the accuracy of Large Language Models (LLMs) by retrieving external knowledge and reducing hallucinations."
+  },
+  "26cbfce7-12bb-4206-a26b-6188fdf6a355": {
+    "status": "completed",
+    "result": "RAG stands for Retrieval-Augmented Generation, a technology that improves Large Language Model (LLM) accuracy by retrieving external knowledge and reduces hallucinations."
+  },
+  "43c76dfe-e7eb-4466-bc52-51b8a7215d6a": {
+    "status": "completed",
+    "result": "I don't know. The context doesn't mention a \"pipe\", it talks about Retrieval-Augmented Generation (RAG) and its benefits."
+  },
+  "e6c6c0ef-922a-44a3-86e6-586d3e7467e2": {
+    "status": "completed",
+    "result": "I don't know. There's no information provided in the given context about 'sia.'"
+  },
+  "4431130c-ddf8-40e5-9296-4d8f00816ca1": {
+    "status": "completed",
+    "result": "I don't know the context or meaning of 'nigga' in this conversation."
+  },
+  "109acfff-0b38-4465-a821-81d1bc394733": {
+    "status": "completed",
+    "result": "I don't know the definition or context of 'nigga'. Can you provide more information or clarify what you mean?"
+  },
+  "18717f0b-a5a1-4a7f-b2f4-3e23907c73c0": {
+    "status": "completed",
+    "result": "I don't know. The context provided is about RAG and its capabilities, but it doesn't mention the term 'nigga'."
+  },
+  "8922cbf7-d5f2-42da-8dea-135facd6e545": {
+    "status": "completed",
+    "result": "I don't know."
+  },
+  "13d741f9-444a-4af1-9ba6-feb50ca7dc7e": {
+    "status": "completed",
+    "result": "I don't know the meaning of the term \"nigga\"."
+  },
+  "2a452215-c3d3-4a0d-a523-39d97b2d5ff4": {
+    "status": "completed",
+    "result": "I don't have enough context to provide a relevant answer for the question \"what is nigga?\". In the provided context, the RAG (Retrieval-Augmented Generation) seems unrelated to this question."
   }
 }
