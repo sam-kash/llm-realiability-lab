@@ -13,7 +13,7 @@ export const ensureEvaluationTopic = async () => {
       topics: [
         {
           topic: EVALUATION_REQUESTS_TOPIC,
-          numPartitions: 1,
+          numPartitions: 3,
           replicationFactor: 1,
         },
       ],
