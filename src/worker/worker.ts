@@ -1,17 +1,26 @@
 import { consumer } from "../kafka/client.js"; 
 import { EVALUATION_REQUESTS_TOPIC, ensureEvaluationTopic } from "../kafka/topics.js";
 //import { setJob } from "../store/jobStore.js";
+import Fastify from "fastify";
 import { retrieveContext } from "../rag/query.js";
 import { callLLM } from "../services/llm.js";
 import { loadData } from "../rag/ingest.js";
 import { redis } from "../store/redis.js";
-import { jobProcessedCounter, jobProcessingTime } from "../metrics/metrics.js";
+import { jobProcessedCounter, jobProcessingTime, register } from "../metrics/metrics.js";
 
 import dotenv from "dotenv"
 
 dotenv.config();
 
+const metricsServer = Fastify();
+
+metricsServer.get("/metrics", async (_request, reply) => {
+    reply.header("Content-Type", register.contentType);
+    return register.metrics();
+});
+
 const runWorker = async() =>{
+    await metricsServer.listen({ port: 4000 });
     await ensureEvaluationTopic();
 
     await loadData();
