@@ -4,8 +4,8 @@ import { callLLM } from "../services/llm.js";
 import {v4 as uuid4} from "uuid"
 import {producer} from "../kafka/client.js";
 import { EVALUATION_REQUESTS_TOPIC } from "../kafka/topics.js";
-import { getJob, setJob } from "../store/jobStore.js";
-
+//import { getJob, setJob } from "../store/jobStore.js";
+import { redis } from "../store/redis.js";
 
 export default async function askRoute(app: FastifyInstance) {
   app.post("/ask", async (request, reply) => {
@@ -33,7 +33,10 @@ ${question}
   app.post("/evaluate", async (request, reply) =>{
     const {question} = request.body as {question: string};
     const jobId = uuid4();
-    setJob(jobId, {status : "pending"});
+    await redis.set(
+      jobId,
+      JSON.stringify({status: "pending"})
+    )
 
     await producer.send({
       topic : EVALUATION_REQUESTS_TOPIC,
@@ -46,9 +49,10 @@ ${question}
     return {jobId};
   }),
 
-  app.get("/result/:id", (request, reply) => {
+  app.get("/result/:id", async (request, reply) => {
     const {id} = request.params as {id: string};
-    const job = getJob(id);
+    //const job = getJob(id);
+    const job = await redis.get(id);
 
     if(!job){
       return reply.status(404).send({
@@ -56,6 +60,6 @@ ${question}
       });
     }
 
-    return job;
+    return JSON.parse(job);
   })
 }
