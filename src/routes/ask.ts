@@ -6,6 +6,8 @@ import {producer} from "../kafka/client.js";
 import { EVALUATION_REQUESTS_TOPIC } from "../kafka/topics.js";
 //import { getJob, setJob } from "../store/jobStore.js";
 import { redis } from "../store/redis.js";
+import { requestCounter } from "../metrics/metrics.js";
+
 
 export default async function askRoute(app: FastifyInstance) {
   app.post("/ask", async (request, reply) => {
@@ -31,6 +33,7 @@ ${question}
   });
 
   app.post("/evaluate", async (request, reply) =>{
+    requestCounter.inc();
     const {question} = request.body as {question: string};
     const jobId = uuid4();
     await redis.set(

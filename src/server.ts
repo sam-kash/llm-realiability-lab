@@ -4,6 +4,7 @@ import askRoute from "./routes/ask.js";
 import { loadData } from "./rag/ingest.js";
 import { producer } from "./kafka/client.js";
 import { ensureEvaluationTopic } from "./kafka/topics.js";
+import {register} from "./metrics/metrics.js"
 
 await loadData()
 await ensureEvaluationTopic();
@@ -21,5 +22,10 @@ const start = async () => {
         process.exit(1)
     }
 };
+
+app.get("/metrics", async (req, reply) => {
+  reply.header("Content-Type", register.contentType);
+  return register.metrics();
+});
 
 start();

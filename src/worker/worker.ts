@@ -5,6 +5,7 @@ import { retrieveContext } from "../rag/query.js";
 import { callLLM } from "../services/llm.js";
 import { loadData } from "../rag/ingest.js";
 import { redis } from "../store/redis.js";
+import { jobProcessedCounter, jobProcessingTime } from "../metrics/metrics.js";
 
 import dotenv from "dotenv"
 
@@ -22,6 +23,7 @@ const runWorker = async() =>{
 
     await consumer.run({
         eachMessage: async ({message}) => {
+            const start = Date.now();
             const {jobId, question} = JSON.parse(message.value!.toString());
 
             console.log("Processing job:", jobId);
@@ -36,7 +38,11 @@ const runWorker = async() =>{
             ${question}
             `;
 
-            const answer = await callLLM(prompt)
+            const answer = await callLLM(prompt);
+            const duration = (Date.now() - start) / 1000;
+
+            jobProcessedCounter.inc();
+            jobProcessingTime.observe(duration);
 
             await redis.set(
                 jobId,
