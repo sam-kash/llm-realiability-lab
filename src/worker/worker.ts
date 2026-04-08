@@ -1,9 +1,11 @@
 import { consumer } from "../kafka/client.js"; 
 import { EVALUATION_REQUESTS_TOPIC, ensureEvaluationTopic } from "../kafka/topics.js";
-import { setJob } from "../store/jobStore.js";
+//import { setJob } from "../store/jobStore.js";
 import { retrieveContext } from "../rag/query.js";
 import { callLLM } from "../services/llm.js";
 import { loadData } from "../rag/ingest.js";
+import { redis } from "../store/redis.js";
+
 import dotenv from "dotenv"
 
 dotenv.config();
@@ -36,10 +38,13 @@ const runWorker = async() =>{
 
             const answer = await callLLM(prompt)
 
-            setJob(jobId, {
-                status : "completed",
-                result : answer,
-            });
+            await redis.set(
+                jobId,
+                JSON.stringify({
+                    status: "completed",
+                    result: answer,
+                })
+            )
         },
     });
 };
