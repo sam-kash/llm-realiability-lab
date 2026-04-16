@@ -4,6 +4,7 @@ import askRoute from "./routes/ask.js";
 import { loadData } from "./rag/ingest.js";
 import { producer } from "./kafka/client.js";
 import { ensureEvaluationTopic } from "./kafka/topics.js";
+import {register, getWorkerMetricsText} from "./metrics/metrics.js"
 
 await loadData()
 await ensureEvaluationTopic();
@@ -21,5 +22,14 @@ const start = async () => {
         process.exit(1)
     }
 };
+
+app.get("/metrics", async (req, reply) => {
+  const [appMetrics, workerMetrics] = await Promise.all([
+    register.metrics(),
+    getWorkerMetricsText(),
+  ]);
+  reply.header("Content-Type", register.contentType);
+  return appMetrics + "\n" + workerMetrics;
+});
 
 start();
