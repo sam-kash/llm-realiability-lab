@@ -4,13 +4,33 @@ import { retrieveContext } from "../rag/query.js";
 import { callLLM } from "../services/llm.js";
 import { loadData } from "../rag/ingest.js";
 import { redis } from "../store/redis.js";
-import { recordJobProcessed } from "../metrics/metrics.js";
+import { recordJobProcessed, workerRegister } from "../metrics/metrics.js";
+import Fastify from "fastify";
 
 import dotenv from "dotenv"
 
 dotenv.config();
 
 const runWorker = async() =>{
+    const metricsServer = Fastify();
+    metricsServer.get("/metrics", async (_request, reply) => {
+        reply.header("Content-Type", workerRegister.contentType);
+        return workerRegister.metrics();
+    });
+
+    const preferredPort = Number(process.env.METRICS_PORT) || 4000;
+    try {
+        await metricsServer.listen({ port: preferredPort });
+    } catch (err: any) {
+        if (err.code === "EADDRINUSE") {
+            await metricsServer.listen({ port: 0 });
+        } else {
+            throw err;
+        }
+    }
+    const actualPort = (metricsServer.server.address() as any).port;
+    console.log(`Worker metrics server running on port ${actualPort}`);
+
     await ensureEvaluationTopic();
 
     await loadData();
