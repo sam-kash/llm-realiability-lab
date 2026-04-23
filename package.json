@@ -7,6 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch src/server.ts",
     "worker": "tsx watch src/worker/worker.ts",
+    "worker:1": "cross-env METRICS_PORT=4001 tsx watch src/worker/worker.ts",
+    "worker:2": "cross-env METRICS_PORT=4002 tsx watch src/worker/worker.ts",
+    "worker:3": "cross-env METRICS_PORT=4003 tsx watch src/worker/worker.ts",
     "kafka:list": "tsx src/kafka/listTopics.ts"
   },
   "keywords": [],
@@ -31,6 +34,7 @@
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
+    "cross-env": "^10.1.0",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
